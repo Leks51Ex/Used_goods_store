@@ -37,11 +37,10 @@ export function HomePage({ onNavigate }: HomePageProps) {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-                Лучшие цены на технику с гарантией
+              Продажа Б/У оборудования для коммерческого судоходства
               </h1>
               <p className="text-text-secondary text-lg mb-8 max-w-xl">
-                Магазин качественной б/у электроники. Проверяем каждый товар перед продажей и 
-                предоставляем гарантию.
+              тут будет какой то небольшой текстик где мы напишем, что хоть оборудование и бушное, оно все равно очень хорошее полностью рабочее и с ценой приятной
               </p>
               <button
                 onClick={() => onNavigate('catalog')}
@@ -64,7 +63,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      <section className="py-16 border-t border-bg-card">
+      {/* <section className="py-16 border-t border-bg-card">
         <div className="max-w-container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
@@ -81,30 +80,15 @@ export function HomePage({ onNavigate }: HomePageProps) {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="py-16">
-        <div className="max-w-container mx-auto px-6">
-          <h2 className="text-2xl font-bold text-white mb-2">Новое поступление</h2>
-          <p className="text-text-secondary mb-8">Недавно добавленные товары</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {newArrivals.map(product => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onClick={() => onNavigate('product', product.id)}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       <section className="py-16 border-t border-bg-card">
         <div className="max-w-container mx-auto px-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-white mb-2">Популярные товары</h2>
-              <p className="text-text-secondary">Самые продаваемые модели</p>
+              <h2 className="text-2xl font-bold text-white mb-2">Каталог поддерживаемого оборудования</h2>
             </div>
             <button
               onClick={() => onNavigate('catalog')}

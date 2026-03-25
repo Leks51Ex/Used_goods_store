@@ -16,9 +16,10 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { id: 'home' as Page, label: 'Главная' },
-    { id: 'catalog' as Page, label: 'Каталог' },
-    { id: 'cart' as Page, label: 'Корзина' },
+    { id: 'home' as Page, label: 'О нас' },
+    { id: 'catalog' as Page, label: 'Каталог оборудования' },
+    { id: 'delivery' as Page, label: 'Доставка и оплата' },
+    { id: 'contacts' as Page, label: 'Контакты' },
   ];
 
   return (
@@ -29,7 +30,6 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
             <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
               <span className="text-lg font-bold">Б</span>
             </div>
-            <span className="font-semibold text-lg">Б/У ОБОРУДОВАНИЕ</span>
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -53,7 +53,7 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
               <input
                 type="text"
-                placeholder="Поиск по товарам..."
+                placeholder="Ищете что-то конкретное?"
                 value={searchQuery}
                 onChange={e => onSearch(e.target.value)}
                 className="w-64 pl-10 pr-4 py-2 bg-bg-element rounded-lg text-sm text-white placeholder-text-secondary outline-none focus:ring-2 focus:ring-accent"
@@ -64,7 +64,6 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
               onClick={() => onNavigate('cart')}
               className="relative p-2 hover:bg-bg-element rounded-lg transition-colors"
             >
-              <ShoppingCart className="w-6 h-6" />
               {totalItems > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full text-xs flex items-center justify-center font-medium">
                   {totalItems}
