@@ -1,174 +1,309 @@
-# Магазин электроники связи и навигации
+# Б/У Оборудование — Магазин электроники
 
-Учебный проект на React для изучения основ фреймворка.
+Учебный проект на **React** для изучения разработки интернет-магазина.
+
+## Что это за проект?
+
+Это интернет-магазин для продажи б/у электроники (ноутбуки, телефоны, телевизоры). 
+
+**Главная страница** показывает:
+- Большой баннер с информацией о магазине
+- Преимущества магазина (проверка товара, доставка, гарантия)
+- Новинки и популярные товары
+
+**Каталог** позволяет:
+- Фильтровать товары по категории (ноутбуки, телефоны, телевизоры)
+- Фильтровать по состоянию (отличное, хорошее, удовлетворительное)
+- Искать товары по названию
+- Сортировать по цене
+
+**Страница товара** показывает:
+- Фотографии товара (несколько штук)
+- Цену и скидку
+- Характеристики
+- Кнопку "В корзину"
+
+**Корзина** позволяет:
+- Изменять количество товаров
+- Вводить промокод
+- Видеть итоговую сумму
+
+---
 
 ## Структура проекта
 
 ```
 src/
-├── main.tsx          # Точка входа React-приложения
-├── App.tsx           # Главный компонент приложения
-├── index.css         # Глобальные стили (CSS + переменные)
-├── App.css           # Стили App (не используются)
-├── assets/           # Статические файлы
-└── components/       # React-компоненты
-    ├── ProductCard.tsx    # Карточка товара
-    ├── ProductModal.tsx   # Модальное окно товара
-    ├── figma/
-    │   └── ImageWithFallback.tsx  # Изображение с fallback
-    └── ui/
-        ├── dialog.tsx     # UI-компонент диалога (из Radix UI)
-        └── utils.ts      # Утилиты (cn() для классов)
+├── main.tsx              # Точка входа — здесь React подключается к странице
+├── App.tsx               # Главный компонент — управляет навигацией между страницами
+├── index.css             # Базовые стили и переменные для всего сайта
+├── App.css               # Стили для App (не используются, можно удалить)
+│
+├── data/
+│   └── products.ts       # Все данные о товарах (название, цена, описание)
+│
+├── context/
+│   └── CartContext.tsx   # Хранилище корзины — доступно в любом компоненте
+│
+└── components/
+    ├── Header.tsx        # Шапка сайта — логотип, меню, поиск, корзина
+    ├── Footer.tsx        # Подвал сайта — контакты, соцсети
+    ├── HomePage.tsx      # Главная страница
+    ├── CatalogPage.tsx   # Каталог с фильтрами
+    ├── ProductPage.tsx   # Страница одного товара
+    ├── CartPage.tsx      # Страница корзины
+    ├── ProductCard.tsx   # Карточка товара (используется в каталоге)
+    └── ui/               # Вспомогательные компоненты
 ```
 
-## Ключевые концепции React в этом проекте
+---
 
-### 1. JSX - синтаксис шаблонов React
-Файлы `.tsx` содержат JSX - HTML-подобный синтаксис в JavaScript:
+## Как работает проект — объяснение для новичков
 
-```tsx
-// src/App.tsx:119-125
-{products.map((product) => (
-  <ProductCard
-    key={product.id}
-    product={product}
-    onClick={() => handleProductClick(product)}
-  />
-))}
-```
+### 1. React — это библиотека для создания интерфейсов
+
+React позволяет создавать **компоненты** — независимые части интерфейса. Каждый компонент — это функция, которая возвращает HTML-подобный код (JSX).
 
 ### 2. Компоненты
-Компонент — это функция, возвращающая JSX:
+
+**Компонент** — это функция, которая возвращает кусочек интерфейса:
 
 ```tsx
-// src/components/ProductCard.tsx:16
-export function ProductCard({ product, onClick }: ProductCardProps) {
+// Пример простого компонента (ProductCard.tsx)
+function ProductCard({ name, price }: { name: string; price: number }) {
   return (
-    <button onClick={onClick} className="...">
-      {/* JSX разметка */}
-    </button>
+    <div className="card">
+      <h3>{name}</h3>
+      <p>{price} ₽</p>
+    </div>
   );
 }
 ```
 
-### 3. Props (свойства)
-Данные передаются в компоненты через props:
+### 3. Props (пропсы) — передача данных в компоненты
+
+Компоненты могут получать данные через **пропсы**:
 
 ```tsx
-// Определение пропсов
-interface ProductCardProps {
-  product: Product;
-  onClick: () => void;
-}
+// Родительский компонент передаёт данные
+<ProductCard name="MacBook Air" price={79990} />
 
-// Использование пропсов в компоненте
-export function ProductCard({ product, onClick }: ProductCardProps) {
-  return <button onClick={onClick}>{product.name}</button>;
+// Дочерний компонент получает их через параметры
+function ProductCard({ name, price }: { name: string; price: number }) {
+  // ...
 }
 ```
 
-### 4. useState - управление состоянием
-Хук для хранения состояния компонента:
+### 4. useState — хранение состояния
+
+**Состояние** — это данные, которые могут меняться (например, товары в корзине):
 
 ```tsx
-// src/App.tsx:93-95
-const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-const [isModalOpen, setIsModalOpen] = useState(false);
+import { useState } from 'react';
 
-// Обновление состояния
-const handleProductClick = (product: Product) => {
+// Создаём состояние "товар" (изначально null)
+const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+// Функция setSelectedProduct обновляет состояние
+const handleClick = (product: Product) => {
   setSelectedProduct(product);
-  setIsModalOpen(true);
 };
 ```
 
-### 5. Типизация с TypeScript
-TypeScript добавляет типы к данным:
+### 5. Навигация между страницами
+
+В этом проекте нет отдельных URL-адресов для страниц. Вместо этого мы меняем **состояние**:
 
 ```tsx
-// src/components/ProductCard.tsx:3-9
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  condition?: string;  // необязательное поле
+// App.tsx хранит текущую страницу
+const [currentPage, setCurrentPage] = useState<Page>('home');
+
+// В зависимости от состояния показываем нужную страницу
+switch (currentPage) {
+  case 'home':    return <HomePage />;
+  case 'catalog': return <CatalogPage />;
+  case 'product': return <ProductPage />;
+  case 'cart':    return <CartPage />;
 }
 ```
 
-### 6. Списки и ключи (map + key)
-Рендер списка элементов:
+### 6. Context (контекст) — обмен данными между компонентами
+
+**Проблема:** как передать данные корзины из Header в CartPage, если они далеко друг от друга?
+
+**Решение:** используем Context. Это "глобальная переменная", доступная из любого компонента:
 
 ```tsx
-// src/App.tsx:119
-{products.map((product) => (
-  <ProductCard
-    key={product.id}  // key нужен для оптимизации React
-    product={product}
-    onClick={() => handleProductClick(product)}
-  />
-))}
+// Создаём хранилище (CartContext.tsx)
+const CartContext = createContext<CartContextType | undefined>(undefined);
+
+// Оборачиваем приложение в провайдер
+<CartProvider>
+  <App />
+</CartProvider>
+
+// Теперь любой компонент может использовать корзину
+function Header() {
+  const { items } = useCart(); // Получаем данные из контекста
+}
 ```
 
-### 7. Обработка событий
-Клик по элементу:
+### 7. TypeScript — защита от ошибок
+
+TypeScript добавляет **типы** к данным, чтобы ловить ошибки заранее:
 
 ```tsx
-<button onClick={onClick}>
-  Нажми меня
-</button>
+// Без типа: можно передать что угодно
+function ProductCard({ product }) { ... }
+
+// С типом: IDE подскажет, если ошиблись
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+}
+function ProductCard({ product }: { product: Product }) { ... }
 ```
+
+---
+
+## Порядок изучения кода
+
+Рекомендуемый порядок для понимания проекта:
+
+### Шаг 1: Точка входа
+**`src/main.tsx`** — с чего всё начинается
+```tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.tsx'
+import './index.css'
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+```
+
+### Шаг 2: Данные о товарах
+**`src/data/products.ts`** — что мы продаём
+- Здесь описаны все товары с ценами, характеристиками
+
+### Шаг 3: Корзина (Context)
+**`src/context/CartContext.tsx`** — как хранить данные
+- Здесь создаётся хранилище для корзины
+
+### Шаг 4: Главный компонент
+**`src/App.tsx`** — связываем всё вместе
+- Здесь навигация между страницами
+- Здесь подключается CartProvider
+
+### Шаг 5: Компоненты по порядку
+1. `Header.tsx` — шапка сайта
+2. `Footer.tsx` — подвал сайта
+3. `HomePage.tsx` — главная страница
+4. `ProductCard.tsx` — карточка товара
+5. `CatalogPage.tsx` — каталог с фильтрами
+6. `ProductPage.tsx` — страница товара
+7. `CartPage.tsx` — корзина
+
+---
 
 ## Запуск проекта
 
 ```bash
-# Установка зависимостей
+# Установить зависимости (один раз)
 npm install
 
-# Запуск dev-сервера
+# Запустить dev-сервер
 npm run dev
+# Откроется http://localhost:5173
 
-# Продакшн сборка
+# Создать продакшн-сборку
 npm run build
 
-# Проверка линтером
+# Проверить код линтером
 npm run lint
+
+# Посмотреть продакшн-версию локально
+npm run preview
 ```
+
+---
 
 ## Стек технологий
 
-| Технология | Назначение |
-|------------|------------|
-| **React 19** | Фреймворк для UI |
-| **TypeScript** | Типизация JavaScript |
-| **Vite** | Сборщик и dev-сервер |
-| **TailwindCSS 4** | CSS-фреймворк для стилей |
-| **Radix UI** | Готовые UI-компоненты (Dialog) |
-| **lucide-react** | Иконки |
-| **clsx + tailwind-merge** | Утилиты для работы с классами |
+| Технология | Зачем нужна | Аналог |
+|------------|-------------|--------|
+| **React** | UI-фреймворк | Vue, Angular |
+| **TypeScript** | Типизация JS | JavaScript |
+| **Vite** | Сборщик и dev-сервер | Webpack, CRA |
+| **TailwindCSS** | Стили через классы | Обычный CSS |
+| **lucide-react** | Иконки | Font Awesome |
+| **Context API** | Глобальное состояние | Redux |
 
-## Порядок изучения файлов
+---
 
-1. **`src/main.tsx`** — точка входа, где React монтируется в DOM
-2. **`src/App.tsx`** — главная логика: состояние и рендер списка товаров
-3. **`src/components/ProductCard.tsx`** — простой компонент с пропсами
-4. **`src/components/ProductModal.tsx`** — модальное окно с условным рендером
-5. **`src/components/ui/dialog.tsx`** — пример обёртки над библиотечным компонентом
-6. **`src/components/ui/utils.ts`** — утилита `cn()` для объединения классов
+## Цветовая схема
 
-## Полезные паттерны для изучения
+Проект использует тёмную тему:
 
-### Условный рендер
+| Цвет | HEX | Использование |
+|------|-----|--------------|
+| Фон | `#000000` | Основной фон |
+| Карточки | `#1C1C1E` | Фон блоков |
+| Элементы | `#2C2C2E` | Кнопки, поля |
+| Акцент | `#AA3BFF` | Фиолетовый для кнопок |
+| Текст белый | `#FFFFFF` | Основной текст |
+| Текст серый | `#8E8E93` | Дополнительный текст |
+
+---
+
+## Как добавить новый товар
+
+Откройте `src/data/products.ts` и добавьте объект в массив `products`:
+
 ```tsx
-{product.condition && <p>{product.condition}</p>}
+{
+  id: '16',
+  name: 'Новый товар',
+  price: 49990,
+  oldPrice: 59990,        // старая цена (необязательно)
+  image: 'https://...',   // картинка
+  images: ['https://...', 'https://...'], // галерея
+  category: 'laptops',    // laptops | phones | tvs
+  condition: 'excellent', // excellent | good | satisfactory
+  description: 'Описание товара',
+  specs: {
+    screen: '14 дюймов',
+    memory: '256 ГБ',
+    color: 'Серебристый',
+    warranty: '6 месяцев',
+  },
+}
 ```
 
-### Обработка ошибок изображения
-```tsx
-// src/components/figma/ImageWithFallback.tsx
-const [didError, setDidError] = useState(false);
-return didError ? <FallbackImage /> : <img onError={handleError} />;
-```
+---
 
-### Props drilling vs Composition
-Компоненты получают данные через props и передают колбэки для действий.
+## Частые вопросы
+
+**Q: Почему стили написаны прямо в JSX?**
+A: Это TailwindCSS — CSS-фреймворк, где стили пишутся классами. Это ускоряет разработку.
+
+**Q: Что такое `className` вместо `class`?**
+A: В React атрибут `class` называется `className` (потому что `class` зарезервирован в JS).
+
+**Q: Зачем нужны фигурные скобки `{ }` в JSX?**
+A: `{выражение}` вставляет результат JavaScript-выражения в HTML.
+
+**Q: Что такое `key` в списках?**
+A: React требует уникальный `key` для элементов списка, чтобы оптимизировать перерисовку.
+
+---
+
+## Полезные ресурсы для обучения
+
+- [React Docs](https://react.dev) — официальная документация
+- [TailwindCSS](https://tailwindcss.com/docs) — документация стилей
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/) — руководство по типам

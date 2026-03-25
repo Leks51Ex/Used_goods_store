@@ -1,12 +1,8 @@
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { ShoppingCart } from 'lucide-react';
+import { getConditionLabel, type Product } from '../data/products';
+import { useCart } from '../context/CartContext';
 
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  condition?: string;
-}
+export type { Product };
 
 interface ProductCardProps {
   product: Product;
@@ -14,29 +10,47 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, onClick }: ProductCardProps) {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+  };
+
   return (
-    <button
+    <div
       onClick={onClick}
-      className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 text-left w-full"
+      className="bg-bg-element rounded-xl overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all"
     >
-      <div className="aspect-square overflow-hidden bg-gray-100">
-        <ImageWithFallback
+      <div className="aspect-square overflow-hidden bg-bg-hover">
+        <img
           src={product.image}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>
       <div className="p-4">
-        <h3 className="text-base mb-2 text-gray-900 line-clamp-2">
-          {product.name}
-        </h3>
-        <p className="text-lg font-semibold text-gray-900">
-          ${product.price.toFixed(2)}
+        <h3 className="text-white font-medium mb-1 line-clamp-2">{product.name}</h3>
+        <p className="text-text-secondary text-sm mb-2">
+          {getConditionLabel(product.condition)}
         </p>
-        {product.condition && (
-          <p className="text-sm text-gray-500 mt-1">{product.condition}</p>
-        )}
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-white font-bold text-lg">{product.price.toLocaleString('ru-RU')} ₽</p>
+            {product.oldPrice && (
+              <p className="text-text-secondary text-sm line-through">
+                {product.oldPrice.toLocaleString('ru-RU')} ₽
+              </p>
+            )}
+          </div>
+          <button
+            onClick={handleAddToCart}
+            className="p-2 bg-accent rounded-lg hover:bg-accent-hover transition-colors"
+          >
+            <ShoppingCart className="w-5 h-5 text-white" />
+          </button>
+        </div>
       </div>
-    </button>
+    </div>
   );
 }
