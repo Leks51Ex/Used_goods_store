@@ -40,7 +40,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#000000]">
+    <div className=" flex flex-col bg-[#000000]">
       <Header
         currentPage={currentPage}
         onNavigate={handleNavigate}

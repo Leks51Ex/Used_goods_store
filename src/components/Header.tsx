@@ -24,7 +24,7 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
 
   return (
     <header className="bg-bg-primary text-white ">
-      <div className="max-w-[1440px] mx-auto px-6">
+      <div className="max-w-[1840px] mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate('home')}>
             <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">

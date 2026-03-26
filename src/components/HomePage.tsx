@@ -37,7 +37,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
   return (
     <main className="flex-1 bg-bg-primary">
       <section className="relative overflow-hidden">
-        <div className="max-w-[1440px] mx-auto px-6 py-16">
+        <div className="max-w-[1840px] mx-auto px-6 py-16">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
