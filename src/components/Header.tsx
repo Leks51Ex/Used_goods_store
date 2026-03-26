@@ -23,7 +23,7 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
   ];
 
   return (
-    <header className="bg-bg-card text-white">
+    <header className="bg-bg-primary text-white ">
       <div className="max-w-[1440px] mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate('home')}>
@@ -56,7 +56,7 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
                 placeholder="Ищете что-то конкретное?"
                 value={searchQuery}
                 onChange={e => onSearch(e.target.value)}
-                className="w-64 pl-10 pr-4 py-2 bg-bg-element rounded-lg text-sm text-white placeholder-text-secondary outline-none focus:ring-2 focus:ring-accent"
+                className="w-64 pl-10 pr-4 py-2 bg-bg-subcolor rounded-lg text-sm text-white placeholder-text-secondary outline-none focus:ring-2 focus:ring-accent"
               />
             </div>
 

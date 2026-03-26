@@ -11,6 +11,7 @@
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #8E8E93;
   --color-border: #2C2C2E;
+  --color-bg-subcolor: #F3F3F3;
 }
 
 :root {
@@ -98,7 +99,7 @@ h1 {
   }
 }
 h2 {
-  font-size: 24px;
+  font-size: 18px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;

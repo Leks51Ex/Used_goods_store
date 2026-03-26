@@ -2,6 +2,10 @@ import { CheckCircle, Truck, Shield } from 'lucide-react';
 import { ProductCard } from './ProductCard';
 import type { Product } from '../data/products';
 import { products } from '../data/products';
+import mainPicture from "../assets/main_picture.svg";
+import infoCard1 from "../assets/info_card_1.png";
+import infoCard2 from "../assets/info_card_2.png";
+import infoCard3 from "../assets/info_card_3.png";
 
 type Page = 'home' | 'catalog' | 'product' | 'cart';
 
@@ -42,47 +46,79 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <p className="text-text-secondary text-lg mb-8 max-w-xl">
               тут будет какой то небольшой текстик где мы напишем, что хоть оборудование и бушное, оно все равно очень хорошее полностью рабочее и с ценой приятной
               </p>
-              <button
-                onClick={() => onNavigate('catalog')}
-                className="px-8 py-4 bg-accent text-white rounded-xl font-semibold hover:bg-accent-hover transition-colors"
-              >
-                Перейти в каталог
-              </button>
+       
+<button 
+onClick={() => onNavigate('catalog')}
+className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:bg-accent-hover transition-colors flex items-center gap-4 group">
+  <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+
+  
+  </svg>
+  <span>Перейти в каталог</span>
+</button>
             </div>
             <div className="flex-1 flex justify-center">
               <div className="relative">
-                <div className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-accent/20 to-transparent rounded-full" />
+              <div className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br" />
                 <img
-                  src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600"
+                  src={mainPicture}
                   alt="Laptop"
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 lg:w-80 rounded-2xl shadow-2xl"
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 lg:w-100"
                 />
               </div>
             </div>
           </div>
         </div>
       </section>
+      <section className="py-16 bg-bg-secondary">
+  <div className="max-w-[1440px] mx-auto px-6 mt-30 mr-30">
+    
+    <div className="flex flex-col lg:flex-row items-start gap-12">
+      
+      <div className="flex gap-4">
+        <img
+          src={infoCard1}
+          alt=""
+          className="w-32 h-40 object-cover rounded-2xl"
+        />
+        <img
+          src={infoCard2}
+          alt=""
+          className="w-32 h-40 object-cover rounded-2xl"
+        />
+        <img
+          src={infoCard3}
+          alt=""
+          className="w-32 h-40 object-cover rounded-2xl"
+        />
+      </div>
+      <div className="max-w-xl text-left">
+  <h2 className="text-2xl lg:text-3xl font-bold mb-6  text-white !text-white leading-relaxed">
+    А ещё интерактивные прототипы лишь добавляют фракционных разногласий и указаны как претенденты на роль ключевых факторов. Ясность нашей позиции очевидна: высокое качество позиционных исследований позволяет выполнить важные задания по разработке новых предложений. Предварительные выводы неутешительны: современная методология разработки требует от нас анализа распределения внутренних резервов и ресурсов.
+  </h2>
 
-      {/* <section className="py-16 border-t border-bg-card">
-        <div className="max-w-container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center text-center p-6 bg-bg-card rounded-xl"
-              >
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4">
-                  <feature.icon className="w-8 h-8 text-accent" />
-                </div>
-                <h3 className="text-white font-semibold text-lg mb-2">{feature.title}</h3>
-                <p className="text-text-secondary text-sm">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
+  <h2 className="text-2xl lg:text-3xl font-bold mb-6  text-white !text-white leading-relaxed">
+    Задача организации, в особенности же перспективное планирование, не оставляет шанса для дальнейших направлений развития. Следует отметить, что семантический разбор внешних противодействий однозначно определяет каждого участника как способного принимать собственные решения касаемо вывода текущих активов. Имеется спорная точка зрения, гласящая примерно следующее:
+  </h2>
+  
 
+  <div className="flex gap-4 mt-4">
+  <span className="px-4 py-2 text-white rounded-full text-sm border-2 border-white">
+    Качество
+  </span>
+  <span className="px-4 py-2 text-white rounded-full text-sm border-2 border-white">
+    Надежность
+  </span>
+  <span className="px-4 py-2 text-white rounded-full text-sm border-2 border-white">
+    Гарантия
+  </span>
+</div>
+</div>
+    </div>
 
+  </div>
+</section>
 
       <section className="py-16 border-t border-bg-card">
         <div className="max-w-container mx-auto px-6">
