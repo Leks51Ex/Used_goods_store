@@ -72,7 +72,7 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
         </div>
       </section>
       <section className="py-16 bg-bg-secondary">
-  <div className="max-w-[1440px] mx-auto px-6 mt-30 mr-30">
+  <div className="max-w-[1440px] mx-auto px-6 mt-30">
     
     <div className="flex flex-col lg:flex-row items-start gap-12">
       
@@ -80,18 +80,19 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
         <img
           src={infoCard1}
           alt=""
-          className="w-32 h-40 object-cover rounded-2xl"
+          className="w-48 h-95 object-cover rounded-2xl"
+        />
+           <img
+          src={infoCard3}
+          alt=""
+          className="w-48 h-95 object-cover rounded-2xl"
         />
         <img
           src={infoCard2}
           alt=""
-          className="w-32 h-40 object-cover rounded-2xl"
+          className="w-48 h-95 object-cover rounded-2xl"
         />
-        <img
-          src={infoCard3}
-          alt=""
-          className="w-32 h-40 object-cover rounded-2xl"
-        />
+     
       </div>
       <div className="max-w-xl text-left">
   <h2 className="text-2xl lg:text-3xl font-bold mb-6  text-white !text-white leading-relaxed">
@@ -124,14 +125,10 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
         <div className="max-w-container mx-auto px-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-white mb-2">Каталог поддерживаемого оборудования</h2>
-            </div>
-            <button
-              onClick={() => onNavigate('catalog')}
-              className="text-accent hover:text-accent-hover transition-colors"
-            >
-              Смотреть все →
-            </button>
+<h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-left">
+  Каталог подержанного <br /> оборудования
+</h1>
+            </div >
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {products.slice(3, 7).map((product: Product) => (

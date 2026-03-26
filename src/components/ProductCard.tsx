@@ -20,7 +20,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
   return (
     <div
       onClick={onClick}
-      className="bg-bg-element rounded-xl overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all"
+      className="bg-bg-subcolor rounded-xl overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all"
     >
       <div className="aspect-square overflow-hidden bg-bg-hover">
         <img
