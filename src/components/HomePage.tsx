@@ -120,6 +120,12 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
               />
             ))}
           </div>
+          <button
+  onClick={() => onNavigate('catalog')}
+  className="mt-10 text-black border-b-1 border-black pb-1"
+>
+  <span>Перейти в каталог</span>
+</button>
         </div>
       </section>
     </main>

@@ -84,20 +84,23 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
     </label>
   </div>
 
-  <div className="flex items-center">
-    <select
-      id="manufacturer-select"
-      value={manufacturer}
-      onChange={(e) => setManufacturer(e.target.value)}
-      className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-black focus:border-black block p-2.5 pr-12"
-    >
-      {manufacturers.map(m => (
-        <option key={m.id} value={m.id}>
-          {m.name}
-        </option>
-      ))}
-    </select>
-  </div>
+  <div className="relative w-54">
+  <select
+    id="manufacturer-select"
+    value={manufacturer}
+    onChange={(e) => setManufacturer(e.target.value)}
+    className="bg-white border border-black text-black text-sm rounded-4xl block w-full p-2 appearance-none pr-1-"
+  >
+    {manufacturers.map(m => (
+      <option key={m.id} value={m.id}>
+        {m.name}
+      </option>
+    ))}
+  </select>
+  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black">
+    ▼
+  </span>
+</div>
 </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 pt-10">
