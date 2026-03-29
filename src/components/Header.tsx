@@ -1,4 +1,4 @@
-import { Search, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 type Page = 'home' | 'catalog';
@@ -6,11 +6,9 @@ type Page = 'home' | 'catalog';
 interface HeaderProps {
   currentPage: Page;
   onNavigate: (page: Page) => void;
-  onSearch: (query: string) => void;
-  searchQuery: string;
 }
 
-export function Header({ currentPage, onNavigate, onSearch, searchQuery }: HeaderProps) {
+export function Header({ currentPage, onNavigate }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -46,19 +44,6 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
-              <input
-                type="text"
-                placeholder="Ищете что-то конкретное?"
-                value={searchQuery}
-                onChange={e => onSearch(e.target.value)}
-                className="w-64 pl-10 pr-4 py-2 bg-bg-subcolor rounded-lg text-sm text-white placeholder-text-secondary outline-none focus:ring-2 focus:ring-accent"
-              />
-            </div>
-          </div>
-
           <div className="hidden md:block text-right">
             <a href="tel:+77777777777" className="text-sm text-text-secondary hover:text-white transition-colors">
               +7 (777) 777-77-77
@@ -75,16 +60,6 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
 
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-bg-element">
-            <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
-              <input
-                type="text"
-                placeholder="Поиск..."
-                value={searchQuery}
-                onChange={e => onSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-bg-element rounded-lg text-sm text-white placeholder-text-secondary outline-none"
-              />
-            </div>
             <nav className="flex flex-col gap-2">
               {navItems.map(item => (
                 <button

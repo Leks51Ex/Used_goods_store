@@ -35,7 +35,7 @@ function AppContent() {
       case 'home':
         return <HomePage onNavigate={handleNavigate} onProductClick={handleProductClick} />;
       case 'catalog':
-        return <CatalogPage onNavigate={handleNavigate} searchQuery={searchQuery} onProductClick={handleProductClick} />;
+        return <CatalogPage onNavigate={handleNavigate} searchQuery={searchQuery} onSearch={setSearchQuery} onProductClick={handleProductClick} />;
       default:
         return <HomePage onNavigate={handleNavigate} onProductClick={handleProductClick} />;
     }
@@ -46,8 +46,6 @@ function AppContent() {
       <Header
         currentPage={currentPage}
         onNavigate={handleNavigate}
-        onSearch={setSearchQuery}
-        searchQuery={searchQuery}
       />
       {renderPage()}
       <Footer />

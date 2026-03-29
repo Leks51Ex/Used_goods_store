@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { ProductCard } from './ProductCard';
 import { products } from '../data/products';
+import { Search } from 'lucide-react';
 
 type Page = 'home' | 'catalog';
 
@@ -8,25 +9,56 @@ interface CatalogPageProps {
   onNavigate: (page: Page) => void;
   onProductClick: (productId: string) => void;
   searchQuery: string;
+  onSearch: (query: string) => void;
 }
 
-export function CatalogPage({ searchQuery, onProductClick }: CatalogPageProps) {
+const manufacturers = [
+  { id: '', name: 'Все производители' },
+  { id: 'apple', name: 'Apple' },
+  { id: 'samsung', name: 'Samsung' },
+  { id: 'lg', name: 'LG' },
+  { id: 'dell', name: 'Dell' },
+  { id: 'xiaomi', name: 'Xiaomi' },
+  { id: 'lenovo', name: 'Lenovo' },
+  { id: 'sony', name: 'Sony' },
+  { id: 'huawei', name: 'Huawei' },
+  { id: 'asus', name: 'ASUS' },
+];
+
+export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPageProps) {
+  const [manufacturer, setManufacturer] = useState('');
+
   const filteredProducts = useMemo(() => {
     return products.filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesSearch;
+      const matchesManufacturer = !manufacturer || product.name.toLowerCase().includes(manufacturer.toLowerCase());
+      return matchesSearch && matchesManufacturer;
     });
-  }, [searchQuery]);
+  }, [searchQuery, manufacturer]);
 
   return (
     <main className="flex-1 bg-bg-primary">
-         
+
         <div className="max-w-[1740px] mx-auto px-6 py-12">
-          
+
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1">
-            
+
             <h1 className="text-left text-2xl font-bold text-white mb-6">Каталог поддержанного оборудования</h1>
+            
+            <div className="flex items-center gap-4 mb-6">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+                <input
+                  type="text"
+                  placeholder="Ищете что-то конкретное?"
+                  value={searchQuery}
+                  onChange={e => onSearch(e.target.value)}
+                  className="w-64 pl-10 pr-4 py-2 bg-bg-subcolor rounded-2xl text-sm text-white placeholder-text-secondary outline-none focus:ring-2 focus:ring-accent"
+                />
+              </div>
+            </div>
+
             <div className="flex items-center gap-4">
   <div className="flex items-center">
     <input
@@ -52,8 +84,20 @@ export function CatalogPage({ searchQuery, onProductClick }: CatalogPageProps) {
     </label>
   </div>
 
-
-  
+  <div className="flex items-center">
+    <select
+      id="manufacturer-select"
+      value={manufacturer}
+      onChange={(e) => setManufacturer(e.target.value)}
+      className="bg-white border border-gray-300 text-gray-900 text-sm rounded-2xl focus:ring-black focus:border-black block p-2.5 pr-12"
+    >
+      {manufacturers.map(m => (
+        <option key={m.id} value={m.id}>
+          {m.name}
+        </option>
+      ))}
+    </select>
+  </div>
 </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 pt-10">
