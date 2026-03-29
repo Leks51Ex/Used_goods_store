@@ -37,7 +37,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
   return (
     <main className="flex-1 bg-bg-primary">
       <section className="relative overflow-hidden">
-        <div className="max-w-[1840px] mx-auto px-6 py-16">
+        <div className="max-w-[1840px] mx-auto px-26 py-6 pt-6">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6">
@@ -60,19 +60,20 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
             </div>
             <div className="flex-1 flex justify-center">
               <div className="relative">
-              <div className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br" />
-                <img
-                  src={mainPicture}
-                  alt="Laptop"
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 lg:w-100"
-                />
+              <div className="w-full max-w-[700px]">
+  <img
+    src={mainPicture}
+    alt="Laptop"
+    className="w-full h-auto"
+  />
+</div>
               </div>
             </div>
           </div>
         </div>
       </section>
       <section className="py-16 bg-bg-secondary">
-  <div className="max-w-[1440px] mx-auto px-6 mt-30">
+  <div className="max-w-[1640px] mx-auto mt-30">
     
     <div className="flex flex-col lg:flex-row items-start gap-12">
       
@@ -94,12 +95,12 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
         />
      
       </div>
-      <div className="max-w-xl text-left">
-  <h2 className="text-2xl lg:text-3xl font-bold mb-6  text-white !text-white leading-relaxed">
+      <div className="max-w-xl text-left ">
+  <h2 className="!text-white !font-light">
     А ещё интерактивные прототипы лишь добавляют фракционных разногласий и указаны как претенденты на роль ключевых факторов. Ясность нашей позиции очевидна: высокое качество позиционных исследований позволяет выполнить важные задания по разработке новых предложений. Предварительные выводы неутешительны: современная методология разработки требует от нас анализа распределения внутренних резервов и ресурсов.
   </h2>
-
-  <h2 className="text-2xl lg:text-3xl font-bold mb-6  text-white !text-white leading-relaxed">
+<div className='h-[30px]'></div>
+  <h2 className="!text-white !font-light">
     Задача организации, в особенности же перспективное планирование, не оставляет шанса для дальнейших направлений развития. Следует отметить, что семантический разбор внешних противодействий однозначно определяет каждого участника как способного принимать собственные решения касаемо вывода текущих активов. Имеется спорная точка зрения, гласящая примерно следующее:
   </h2>
   
