@@ -1,4 +1,3 @@
-import { CheckCircle, Truck, Shield } from 'lucide-react';
 import { ProductCard } from './ProductCard';
 import type { Product } from '../data/products';
 import { products } from '../data/products';
@@ -7,33 +6,14 @@ import infoCard1 from "../assets/info_card_1.png";
 import infoCard2 from "../assets/info_card_2.png";
 import infoCard3 from "../assets/info_card_3.png";
 
-type Page = 'home' | 'catalog' | 'product' | 'cart';
+type Page = 'home' | 'catalog';
 
 interface HomePageProps {
-  onNavigate: (page: Page, productId?: string) => void;
+  onNavigate: (page: Page) => void;
+  onProductClick: (productId: string) => void;
 }
 
-export function HomePage({ onNavigate }: HomePageProps) {
-  const newArrivals = products.slice(0, 3);
-
-  const features = [
-    {
-      icon: CheckCircle,
-      title: 'Проверка товара',
-      description: 'Каждый товар проходит тщательную проверку перед продажей',
-    },
-    {
-      icon: Truck,
-      title: 'Быстрая доставка',
-      description: 'Доставим товар в течение 1-3 дней по всей России',
-    },
-    {
-      icon: Shield,
-      title: 'Гарантия',
-      description: 'Предоставляем гарантию на все товары от 1 до 12 месяцев',
-    },
-  ];
-
+export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
   return (
     <main className="flex-1 bg-bg-primary">
       <section className="relative overflow-hidden">
@@ -46,14 +26,14 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <p className="text-text-secondary text-lg mb-8 max-w-xl">
               тут будет какой то небольшой текстик где мы напишем, что хоть оборудование и бушное, оно все равно очень хорошее полностью рабочее и с ценой приятной
               </p>
-       
-<button 
+
+<button
 onClick={() => onNavigate('catalog')}
 className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:bg-accent-hover transition-colors flex items-center gap-4 group">
   <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
 
-  
+
   </svg>
   <span>Перейти в каталог</span>
 </button>
@@ -74,9 +54,9 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
       </section>
       <section className="py-16 bg-bg-secondary">
   <div className="max-w-[1640px] mx-auto mt-30">
-    
+
     <div className="flex flex-col lg:flex-row items-start gap-12">
-      
+
       <div className="flex gap-4">
         <img
           src={infoCard1}
@@ -93,7 +73,7 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
           alt=""
           className="w-48 h-95 object-cover rounded-2xl"
         />
-     
+
       </div>
       <div className="max-w-xl text-left ">
   <h2 className="!text-white !font-light">
@@ -103,7 +83,7 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
   <h2 className="!text-white !font-light">
     Задача организации, в особенности же перспективное планирование, не оставляет шанса для дальнейших направлений развития. Следует отметить, что семантический разбор внешних противодействий однозначно определяет каждого участника как способного принимать собственные решения касаемо вывода текущих активов. Имеется спорная точка зрения, гласящая примерно следующее:
   </h2>
-  
+
 
   <div className="flex gap-4 mt-4">
   <span className="px-4 py-2 text-white rounded-full text-sm border-2 border-white">
@@ -136,7 +116,7 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
               <ProductCard
                 key={product.id}
                 product={product}
-                onClick={() => onNavigate('product', product.id)}
+                onClick={() => onProductClick(product.id)}
               />
             ))}
           </div>

@@ -1,8 +1,7 @@
-import { ShoppingCart, Search, Menu, X } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { useCart } from '../context/CartContext';
 
-type Page = 'home' | 'catalog' | 'product' | 'cart';
+type Page = 'home' | 'catalog';
 
 interface HeaderProps {
   currentPage: Page;
@@ -12,7 +11,6 @@ interface HeaderProps {
 }
 
 export function Header({ currentPage, onNavigate, onSearch, searchQuery }: HeaderProps) {
-  const { totalItems } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -59,17 +57,6 @@ export function Header({ currentPage, onNavigate, onSearch, searchQuery }: Heade
                 className="w-64 pl-10 pr-4 py-2 bg-bg-subcolor rounded-lg text-sm text-white placeholder-text-secondary outline-none focus:ring-2 focus:ring-accent"
               />
             </div>
-
-            <button
-              onClick={() => onNavigate('cart')}
-              className="relative p-2 hover:bg-bg-element rounded-lg transition-colors"
-            >
-              {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full text-xs flex items-center justify-center font-medium">
-                  {totalItems}
-                </span>
-              )}
-            </button>
           </div>
 
           <div className="hidden md:block text-right">
