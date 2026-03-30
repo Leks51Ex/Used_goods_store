@@ -12,18 +12,6 @@ interface CatalogPageProps {
   onSearch: (query: string) => void;
 }
 
-const manufacturers = [
-  { id: '', name: 'Все производители' },
-  { id: 'Acme Corporation', name: 'Acme Corporation' },
-  { id: 'Cir', name: 'Cir' },
-
-];
-
-const types = [
-  { id: '', name: 'Все типы' },
-  { id: 'Навигация', name: 'Навигация' },
-  { id: 'Радио', name: 'Радио' },
-]
 
 export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPageProps) {
   const [manufacturer, setManufacturer] = useState('');
@@ -53,7 +41,7 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
       <div className="max-w-[1740px] mx-auto px-6 py-12">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1">
-            <h1 className="text-left text-2xl font-bold text-white mb-6">Каталог поддержанного оборудования</h1>
+            <h1 className="text-left text-2xl font-bold text-white mb-6">Каталог подержанного оборудования</h1>
 
             <div className="flex items-center gap-4 mb-6">
               <div className="relative">

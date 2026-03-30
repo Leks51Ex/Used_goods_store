@@ -33,13 +33,23 @@ export const products: Product[] = [
   },
   
   {
-    id: '15',
+    id: '3',
     name: 'Магнитный энкодер',
     price: 2875,
     image: 'https://miniature-prod.moysklad.ru/miniature/47c7802d-75ff-11e9-9109-f8fc0000086a/documentminiature/d48e60be-5899-4d62-b246-51ae921f2bed',
 
     type: 'Автоматика',
     manufacturer: 'Acme Corporation',
+
+  },
+  {
+    id: '4',
+    name: 'Эхолот Samyung SES-2000 s.n р',
+    price: 3000,
+    image: 'https://miniature-prod.moysklad.ru/miniature/47c7802d-75ff-11e9-9109-f8fc0000086a/documentminiature/8e52e943-7d05-412b-98d8-41433a18ffe4',
+
+    type: 'Какой-то',
+    manufacturer: 'CIR',
 
   },
 ];

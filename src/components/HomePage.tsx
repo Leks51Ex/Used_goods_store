@@ -5,6 +5,10 @@ import mainPicture from "../assets/main_picture.svg";
 import infoCard1 from "../assets/info_card_1.png";
 import infoCard2 from "../assets/info_card_2.png";
 import infoCard3 from "../assets/info_card_3.png";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 type Page = 'home' | 'catalog';
 
@@ -55,26 +59,60 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
       <section className="py-16 bg-bg-secondary">
   <div className="max-w-[1640px] mx-auto mt-30">
 
-    <div className="flex flex-col lg:flex-row items-start gap-12">
+    <div className="flex flex-col-reverse lg:flex-row items-start gap-12">
 
-      <div className="flex gap-4">
-        <img
-          src={infoCard1}
-          alt=""
-          className="w-48 h-95 object-cover rounded-2xl"
-        />
-           <img
-          src={infoCard3}
-          alt=""
-          className="w-48 h-95 object-cover rounded-2xl"
-        />
-        <img
-          src={infoCard2}
-          alt=""
-          className="w-48 h-95 object-cover rounded-2xl"
-        />
+      <div className="lg:w-auto w-full">
+        <div className="hidden lg:flex gap-4">
+          <img
+            src={infoCard1}
+            alt=""
+            className="w-48 h-95 object-cover rounded-2xl"
+          />
+          <img
+            src={infoCard3}
+            alt=""
+            className="w-48 h-95 object-cover rounded-2xl"
+          />
+          <img
+            src={infoCard2}
+            alt=""
+            className="w-48 h-95 object-cover rounded-2xl"
+          />
+        </div>
 
+        <div className="lg:hidden">
+          <Swiper
+            modules={[Pagination]}
+            pagination={{ clickable: true }}
+            slidesPerView={1}
+            spaceBetween={16}
+            className="w-full max-w-[280px] mx-auto"
+          >
+            <SwiperSlide>
+              <img
+                src={infoCard1}
+                alt=""
+                className="w-full h-64 object-cover rounded-2xl"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={infoCard3}
+                alt=""
+                className="w-full h-64 object-cover rounded-2xl"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src={infoCard2}
+                alt=""
+                className="w-full h-64 object-cover rounded-2xl"
+              />
+            </SwiperSlide>
+          </Swiper>
+        </div>
       </div>
+
       <div className="max-w-xl text-left ">
   <h2 className="!text-white !font-light">
     А ещё интерактивные прототипы лишь добавляют фракционных разногласий и указаны как претенденты на роль ключевых факторов. Ясность нашей позиции очевидна: высокое качество позиционных исследований позволяет выполнить важные задания по разработке новых предложений. Предварительные выводы неутешительны: современная методология разработки требует от нас анализа распределения внутренних резервов и ресурсов.
@@ -107,12 +145,12 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
 <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-left">
-  Каталог подержанного <br /> оборудования
+  Каталог поддержанного <br /> оборудования
 </h1>
             </div >
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.slice(3, 7).map((product: Product) => (
+            {products.slice(0, 3).map((product: Product) => (
               <ProductCard
                 key={product.id}
                 product={product}
