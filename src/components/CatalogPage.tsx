@@ -25,16 +25,27 @@ const manufacturers = [
   { id: 'asus', name: 'ASUS' },
 ];
 
+const types = [
+  { id: '', name: 'Все типы' },
+  { id: 'Навигация', name: 'Навигация' },
+  { id: 'Радио', name: 'Радио' },
+]
+
 export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPageProps) {
   const [manufacturer, setManufacturer] = useState('');
-
-  const filteredProducts = useMemo(() => {
+ const [type, setType] = useState('');
+  
+ 
+ 
+ 
+ const filteredProducts = useMemo(() => {
     return products.filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesManufacturer = !manufacturer || product.name.toLowerCase().includes(manufacturer.toLowerCase());
-      return matchesSearch && matchesManufacturer;
+      const matchesManufacturer = !manufacturer || product.manufacturer === manufacturer;
+      const matchesType = !type || product.type == type;
+      return matchesSearch && matchesManufacturer && matchesType;
     });
-  }, [searchQuery, manufacturer]);
+  }, [searchQuery, manufacturer, type]);
 
   return (
     <main className="flex-1 bg-bg-primary">
@@ -97,6 +108,26 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
       </option>
     ))}
   </select>
+  
+  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black">
+    ▼
+  </span>
+</div>
+
+<div className="relative w-54">
+  <select
+    id="type-select"
+    value={type}
+    onChange={(e) => setType(e.target.value)}
+    className="bg-white border border-black text-black text-sm rounded-4xl block w-full p-2 appearance-none pr-1-"
+  >
+    {types.map(t => (
+      <option key={t.id} value={t.id}>
+        {t.name}
+      </option>
+    ))}
+  </select>
+  
   <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black">
     ▼
   </span>

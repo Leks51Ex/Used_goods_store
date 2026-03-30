@@ -9,6 +9,8 @@ export interface Product {
   images: string[];
   category: 'laptops' | 'phones' | 'tvs';
   condition: Condition;
+  manufacturer: string;
+  type: string;
   description: string;
   specs: {
     screen?: string;
@@ -33,7 +35,9 @@ export const products: Product[] = [
       'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600',
     ],
     category: 'laptops',
+    type: 'Навигация',
     condition: 'excellent',
+    manufacturer: 'apple',
     description: 'Отличный ноутбук для работы и учёбы. Минимальные следы использования, полностью исправен. В комплекте зарядное устройство.',
     specs: {
       screen: '13.3 дюйма Retina',
@@ -56,7 +60,9 @@ export const products: Product[] = [
       'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600',
     ],
     category: 'phones',
+    type: 'Радио',
     condition: 'good',
+    manufacturer: 'apple',
     description: 'Бывший в употреблении iPhone 12 в хорошем состоянии. Имеются мелкие царапины на корпусе, экран в идеале.',
     specs: {
       screen: '6.1 дюйма OLED',
@@ -70,6 +76,7 @@ export const products: Product[] = [
     name: 'Samsung UE55TU8500',
     price: 29990,
     oldPrice: 39990,
+    type: 'Навигация',
     image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400',
     images: [
       'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=600',
@@ -80,6 +87,7 @@ export const products: Product[] = [
     ],
     category: 'tvs',
     condition: 'excellent',
+    manufacturer: 'samsung',
     description: '55-дюймовый 4K Smart TV с кристальным изображением и HDR. В отличном состоянии, использовался мало.',
     specs: {
       screen: '55 дюймов 4K UHD',
@@ -101,6 +109,8 @@ export const products: Product[] = [
     ],
     category: 'laptops',
     condition: 'excellent',
+    manufacturer: 'apple',
+    type: 'Навигация',
     description: 'Профессиональный ноутбук для креаторов. M1 Pro, 16 ГБ RAM, 512 ГБ SSD. Состояние нового.',
     specs: {
       screen: '16.2 дюйма Liquid Retina XDR',
@@ -121,10 +131,13 @@ export const products: Product[] = [
     ],
     category: 'phones',
     condition: 'good',
+    manufacturer: 'apple',
+    type: 'Навигация',
     description: 'Флагманский iPhone с продвинутой камерой. Мелкие потёртости по краям, полностью функционален.',
     specs: {
       screen: '6.1 дюйма Super Retina XDR, 120Hz',
       memory: '256 ГБ',
+  
       color: 'Графитовый',
       warranty: '6 месяцев',
     },
@@ -133,6 +146,7 @@ export const products: Product[] = [
     id: '6',
     name: 'Samsung Galaxy S21',
     price: 28990,
+    type: 'Навигация',
     oldPrice: 34990,
     image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400',
     images: [
@@ -141,6 +155,7 @@ export const products: Product[] = [
     ],
     category: 'phones',
     condition: 'satisfactory',
+    manufacturer: 'samsung',
     description: 'Android флагман с отличной камерой. Есть следы использования, но всё работает идеально.',
     specs: {
       screen: '6.2 дюйма Dynamic AMOLED',
@@ -152,6 +167,7 @@ export const products: Product[] = [
   {
     id: '7',
     name: 'LG OLED55C1',
+    type: 'Навигация',
     price: 89990,
     oldPrice: 119990,
     image: 'https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=400',
@@ -161,6 +177,7 @@ export const products: Product[] = [
     ],
     category: 'tvs',
     condition: 'good',
+    manufacturer: 'lg',
     description: 'Премиальный OLED телевизор с идеальным чёрным цветом. Небольшие следы использования, полный комплект.',
     specs: {
       screen: '55 дюймов OLED 4K, 120Hz',
@@ -174,6 +191,7 @@ export const products: Product[] = [
     name: 'Dell XPS 15',
     price: 89990,
     oldPrice: 109990,
+    type: 'Навигация',
     image: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400',
     images: [
       'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600',
@@ -181,6 +199,7 @@ export const products: Product[] = [
     ],
     category: 'laptops',
     condition: 'excellent',
+    manufacturer: 'dell',
     description: 'Ультрабук премиум-класса с 4K дисплеем. Тонкий, лёгкий, мощный. Практически не использовался.',
     specs: {
       screen: '15.6 дюйма 4K UHD OLED',
@@ -194,6 +213,7 @@ export const products: Product[] = [
     name: 'Xiaomi Mi TV 4S',
     price: 19990,
     oldPrice: 24990,
+    type: 'Навигация',
     image: 'https://images.unsplash.com/photo-1573375148941-8c5f2d6c6c1d?w=400',
     images: [
       'https://images.unsplash.com/photo-1573375148941-8c5f2d6c6c1d?w=600',
@@ -201,6 +221,7 @@ export const products: Product[] = [
     ],
     category: 'tvs',
     condition: 'satisfactory',
+    manufacturer: 'xiaomi',
     description: 'Доступный Smart TV с хорошим изображением. Имеются царапины на подставке, экран в норме.',
     specs: {
       screen: '43 дюйма 4K UHD',
@@ -214,6 +235,7 @@ export const products: Product[] = [
     name: 'iPhone 11',
     price: 24990,
     oldPrice: 32990,
+    type: 'Навигация',
     image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400',
     images: [
       'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600',
@@ -221,6 +243,7 @@ export const products: Product[] = [
     ],
     category: 'phones',
     condition: 'good',
+    manufacturer: 'apple',
     description: 'Надёжный iPhone для повседневного использования. Хорошее состояние, все функции работают.',
     specs: {
       screen: '6.1 дюйма Liquid Retina',
@@ -231,6 +254,7 @@ export const products: Product[] = [
   },
   {
     id: '11',
+    type: 'Навигация',
     name: 'Lenovo ThinkPad X1',
     price: 64990,
     oldPrice: 84990,
@@ -241,6 +265,7 @@ export const products: Product[] = [
     ],
     category: 'laptops',
     condition: 'good',
+    manufacturer: 'lenovo',
     description: 'Бизнес-ноутбук с отличной клавиатурой. Лёгкий, компактный, долго работает от батареи.',
     specs: {
       screen: '14 дюймов Full HD',
@@ -252,6 +277,7 @@ export const products: Product[] = [
   {
     id: '12',
     name: 'Sony KD-55X90J',
+    type: 'Навигация',
     price: 59990,
     oldPrice: 79990,
     image: 'https://images.unsplash.com/photo-1461151304267-38535e780c79?w=400',
@@ -261,6 +287,7 @@ export const products: Product[] = [
     ],
     category: 'tvs',
     condition: 'excellent',
+    manufacturer: 'sony',
     description: 'Телевизор Sony с превосходным качеством изображения. Cognitive Processor XR делает картинку живой.',
     specs: {
       screen: '55 дюймов 4K HDR, 120Hz',
@@ -273,6 +300,7 @@ export const products: Product[] = [
     id: '13',
     name: 'Huawei P40 Pro',
     price: 32990,
+    type: 'Навигация',
     oldPrice: 44990,
     image: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400',
     images: [
@@ -281,6 +309,7 @@ export const products: Product[] = [
     ],
     category: 'phones',
     condition: 'good',
+    manufacturer: 'huawei',
     description: 'Смартфон с лучшей камерой по мнению DXOMARK на момент выхода. Отличное состояние.',
     specs: {
       screen: '6.58 дюйма OLED, 90Hz',
@@ -293,6 +322,7 @@ export const products: Product[] = [
     id: '14',
     name: 'ASUS ROG Zephyrus',
     price: 119990,
+    type: 'Навигация',
     oldPrice: 149990,
     image: 'https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=400',
     images: [
@@ -301,6 +331,7 @@ export const products: Product[] = [
     ],
     category: 'laptops',
     condition: 'excellent',
+    manufacturer: 'asus',
     description: 'Игровой ноутбук с RTX 3060. Тонкий корпус, мощное железо. Практически новый.',
     specs: {
       screen: '15.6 дюйма 144Hz Full HD',
@@ -321,6 +352,8 @@ export const products: Product[] = [
     ],
     category: 'tvs',
     condition: 'good',
+    type: 'Навигация',
+    manufacturer: 'samsung',
     description: 'Планшет с S Pen в подарок. Отличный для рисования и заметок. В хорошем состоянии.',
     specs: {
       screen: '11 дюймов 120Hz TFT',
