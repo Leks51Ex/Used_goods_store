@@ -150,7 +150,7 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
             </div >
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.slice(0, 3).map((product: Product) => (
+            {products.slice(0, 4).map((product: Product) => (
               <ProductCard
                 key={product.id}
                 product={product}
