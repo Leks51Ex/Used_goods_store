@@ -32,6 +32,7 @@ export function ProductModal({ product, open, onOpenChange }: ProductModalProps)
   
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          
         <input
   type="text"
   placeholder="Имя"

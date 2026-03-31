@@ -14,8 +14,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
   const navItems = [
     { id: 'home' as Page, label: 'О нас' },
     { id: 'catalog' as Page, label: 'Каталог оборудования' },
-    { id: 'delivery' as Page, label: 'Доставка и оплата' },
-    { id: 'contacts' as Page, label: 'Контакты' },
+
   ];
 
   return (
