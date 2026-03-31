@@ -44,9 +44,12 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
           </nav>
 
           <div className="hidden md:block text-right">
-            <a href="tel:+77777777777" className="text-sm text-text-secondary hover:text-white transition-colors">
-              +7 (777) 777-77-77
+            <button className='mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:bg-accent-hover transition-colors flex items-center gap-4 group'>
+            <a href="tel:+77777777777" className="text-sm text-text-secondary text-white ">
+              Связаться с нами
             </a>
+            </button>
+         
           </div>
 
           <button
@@ -78,6 +81,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
               ))}
             </nav>
             <div className="mt-4 pt-4 border-t border-bg-element">
+              <button></button>
               <a href="tel:+77777777777" className="text-sm text-text-secondary">
                 +7 (777) 777-77-77
               </a>
