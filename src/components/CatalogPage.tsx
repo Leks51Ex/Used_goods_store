@@ -19,6 +19,8 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
   const [types, setTypes] = useState<string[]>([]);
   const [manufacturers, setManufacturers] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     Promise.all([
@@ -32,8 +34,12 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
 
   useEffect(() => {
     setLoading(true);
-    fetchProducts({ type, manufacturer, limit: 20 })
-      .then(response => setProducts(response.data))
+    setCurrentPage(1);
+    fetchProducts({ type, manufacturer, page: 1, limit: 12 })
+      .then(response => {
+        setProducts(response.data);
+        setTotalPages(response.totalPages);
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [type, manufacturer]);
@@ -54,6 +60,22 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
       return matchesSearch && matchesManufacturer && matchesType;
     });
   }, [products, searchQuery, manufacturer, type]);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchProducts({ type, manufacturer, page: currentPage, limit: 12 })
+      .then(response => {
+        setProducts(response.data);
+        setTotalPages(response.totalPages);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [type, manufacturer, currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <main className="flex-1 bg-bg-primary">
@@ -132,6 +154,38 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
             {filteredProducts.length === 0 && !loading && (
               <div className="text-center py-12">
                 <p className="text-text-secondary">Товары не найдены</p>
+              </div>
+            )}
+
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-2 mt-8">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1 rounded bg-bg-subcolor text-black disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  ←
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`px-3 py-1 rounded ${
+                      currentPage === page
+                        ? 'bg-accent text-white'
+                        : 'bg-bg-subcolor text-black'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1 rounded bg-bg-subcolor text-black disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  →
+                </button>
               </div>
             )}
           </div>
