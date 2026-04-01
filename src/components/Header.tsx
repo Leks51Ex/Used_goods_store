@@ -35,7 +35,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
                 className={`text-sm font-medium transition-colors ${
                   currentPage === item.id
                     ? 'text-accent'
-                    : 'text-text-secondary hover:text-white'
+                    : 'text-text-secondary hover:text-black'
                 }`}
               >
                 {item.label}

@@ -48,7 +48,10 @@ function AppContent() {
         onNavigate={handleNavigate}
       />
       {renderPage()}
-      <Footer />
+      <Footer
+      currentPage={currentPage}
+      onNavigate={handleNavigate}
+      />
       <ProductModal
         product={selectedProduct}
         open={modalOpen}

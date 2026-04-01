@@ -140,12 +140,12 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
   </div>
 </section>
 
-      <section className="py-16 border-t border-bg-card">
-        <div className="max-w-container mx-auto px-6">
+      <section className=" py-16 border-t border-bg-card">
+        <div className="max-w-[1740px] mx-auto px-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
 <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 text-left">
-  Каталог поддержанного <br /> оборудования
+  Каталог подержанного <br /> оборудования
 </h1>
             </div >
           </div>
@@ -166,6 +166,8 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
 </button>
         </div>
       </section>
+
+      
     </main>
   );
 }
