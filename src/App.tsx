@@ -4,8 +4,7 @@ import { Footer } from './components/Footer';
 import { HomePage } from './components/HomePage';
 import { CatalogPage } from './components/CatalogPage';
 import { ProductModal } from './components/ProductModal';
-import { products } from './data/products';
-import type { Product } from './components/ProductCard';
+import type { Product } from './api/products';
 
 type Page = 'home' | 'catalog';
 
@@ -23,11 +22,8 @@ function AppContent() {
   };
 
   const handleProductClick = (productId: string) => {
-    const product = products.find(p => p.id === productId);
-    if (product) {
-      setSelectedProduct(product);
-      setModalOpen(true);
-    }
+    setSelectedProduct({ id: productId, title: '', manufacturer: '', type: '', price: 0, image: '' } as Product);
+    setModalOpen(true);
   };
 
   const renderPage = () => {
@@ -51,6 +47,7 @@ function AppContent() {
       <Footer
       currentPage={currentPage}
       onNavigate={handleNavigate}
+      
       />
       <ProductModal
         product={selectedProduct}

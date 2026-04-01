@@ -1,6 +1,6 @@
+import { useState, useEffect } from 'react';
 import { ProductCard } from './ProductCard';
-import type { Product } from '../data/products';
-import { products } from '../data/products';
+import { fetchProducts, type Product } from '../api/products';
 import mainPicture from "../assets/main_picture.svg";
 import infoCard1 from "../assets/info_card_1.png";
 import infoCard2 from "../assets/info_card_2.png";
@@ -18,6 +18,16 @@ interface HomePageProps {
 }
 
 export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProducts({ limit: 4 })
+      .then(response => setProducts(response.data))
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <main className="flex-1 bg-bg-primary">
       <section className="relative overflow-hidden">
@@ -149,15 +159,21 @@ className="mt-4 px-6 py-3 bg-accent text-white rounded-4xl font-semibold hover:b
 </h1>
             </div >
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.slice(0, 4).map((product: Product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onClick={() => onProductClick(product.id)}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-text-secondary">Загрузка...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {products.map(product => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onClick={() => onProductClick(product.id)}
+                />
+              ))}
+            </div>
+          )}
           <button
   onClick={() => onNavigate('catalog')}
   className="mt-10 text-black border-b-1 border-black pb-1"

@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
-import type { Product } from "./ProductCard";
+import type { Product } from "../api/products";
 
 interface ProductModalProps {
   product: Product | null;
@@ -52,7 +52,7 @@ export function ProductModal({ product, open, onOpenChange }: ProductModalProps)
 />
 <textarea
   className="w-full border-b border-black bg-transparent py-2 text-black placeholder-gray-400 outline-none focus:border-black resize-none"
-  defaultValue={`Здравствуйте! Хочу оставить заявку на продукт: ${product?.name ?? ''}`}
+  defaultValue={`Здравствуйте! Хочу оставить заявку на продукт: ${product?.title ?? ''}`}
 />
           
           <div className="flex gap-4 mt-4">

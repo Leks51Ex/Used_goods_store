@@ -1,4 +1,4 @@
-import type { Product } from '../data/products';
+import type { Product } from '../api/products';
 
 interface ProductCardProps {
   product: Product;
@@ -14,13 +14,13 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       <div className="aspect-square overflow-hidden p-4 pt-4">
         <img
           src={product.image}
-          alt={product.name}
+          alt={product.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-xl"
         />
       </div>
 
       <div className="p-4">
-        <h3 className="text-left text-black font-medium mb-1 line-clamp-2">{product.name}</h3>
+        <h3 className="text-left text-black font-medium mb-1 line-clamp-2">{product.title}</h3>
       </div>
 
       <button
@@ -30,10 +30,8 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
         }}
         className="px-20 py-3 bg-accent text-white rounded-4xl hover:bg-accent-hover transition-colors mb-5"
       >
-        Подробнее
+        Оставить заявку
       </button>
     </div>
   );
 }
-
-export type { Product };

@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { ProductCard } from './ProductCard';
-import { products } from '../data/products';
+import { fetchProducts, fetchTypes, fetchManufacturers, type Product } from '../api/products';
 import { Search } from 'lucide-react';
 
 type Page = 'home' | 'catalog';
@@ -12,29 +12,48 @@ interface CatalogPageProps {
   onSearch: (query: string) => void;
 }
 
-
 export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPageProps) {
   const [manufacturer, setManufacturer] = useState('');
   const [type, setType] = useState('');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [types, setTypes] = useState<string[]>([]);
+  const [manufacturers, setManufacturers] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const manufacturers = useMemo(() => {
-    const unique = Array.from(new Set(products.map(p => p.manufacturer)));
-    return [{ id: '', name: 'Все производители' }, ...unique.map(m => ({ id: m, name: m }))];
+  useEffect(() => {
+    Promise.all([
+      fetchTypes(),
+      fetchManufacturers()
+    ]).then(([typesData, manufacturersData]) => {
+      setTypes(typesData);
+      setManufacturers(manufacturersData);
+    });
   }, []);
 
-  const types = useMemo(() => {
-    const unique = Array.from(new Set(products.map(p => p.type)));
-    return [{ id: '', name: 'Все типы' }, ...unique.map(t => ({ id: t, name: t }))];
-  }, []);
+  useEffect(() => {
+    setLoading(true);
+    fetchProducts({ type, manufacturer, limit: 20 })
+      .then(response => setProducts(response.data))
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [type, manufacturer]);
+
+  const typeOptions = useMemo(() => {
+    return [{ id: '', name: 'Все типы' }, ...types.map(t => ({ id: t, name: t }))];
+  }, [types]);
+
+  const manufacturerOptions = useMemo(() => {
+    return [{ id: '', name: 'Все производители' }, ...manufacturers.map(m => ({ id: m, name: m }))];
+  }, [manufacturers]);
 
   const filteredProducts = useMemo(() => {
     return products.filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesManufacturer = !manufacturer || product.manufacturer === manufacturer;
       const matchesType = !type || product.type === type;
       return matchesSearch && matchesManufacturer && matchesType;
     });
-  }, [searchQuery, manufacturer, type]);
+  }, [products, searchQuery, manufacturer, type]);
 
   return (
     <main className="flex-1 bg-bg-primary">
@@ -57,7 +76,6 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
             </div>
 
             <div className="flex items-center gap-4">
-              {/* Селект производителей */}
               <div className="relative w-54">
                 <select
                   id="manufacturer-select"
@@ -65,7 +83,7 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
                   onChange={(e) => setManufacturer(e.target.value)}
                   className="bg-white border border-black text-black text-sm rounded-4xl block w-full p-2 appearance-none pr-1-"
                 >
-                  {manufacturers.map(m => (
+                  {manufacturerOptions.map(m => (
                     <option key={m.id} value={m.id}>
                       {m.name}
                     </option>
@@ -83,7 +101,7 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
                   onChange={(e) => setType(e.target.value)}
                   className="bg-white border border-black text-black text-sm rounded-4xl block w-full p-2 appearance-none pr-1-"
                 >
-                  {types.map(t => (
+                  {typeOptions.map(t => (
                     <option key={t.id} value={t.id}>
                       {t.name}
                     </option>
@@ -95,17 +113,23 @@ export function CatalogPage({ searchQuery, onSearch, onProductClick }: CatalogPa
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 pt-10">
-              {filteredProducts.map(product => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onClick={() => onProductClick(product.id)}
-                />
-              ))}
-            </div>
+            {loading ? (
+              <div className="text-center py-12">
+                <p className="text-text-secondary">Загрузка...</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 pt-10">
+                {filteredProducts.map(product => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onClick={() => onProductClick(product.id)}
+                  />
+                ))}
+              </div>
+            )}
 
-            {filteredProducts.length === 0 && (
+            {filteredProducts.length === 0 && !loading && (
               <div className="text-center py-12">
                 <p className="text-text-secondary">Товары не найдены</p>
               </div>
